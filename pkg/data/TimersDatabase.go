@@ -1,8 +1,8 @@
 package data
 
 import (
-	"logger"
 	"database/sql"
+	"logger"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -14,7 +14,7 @@ func InsertTimer(RaceId int, RacerName string, TimeInSec int) bool {
 
 	var count int
 	err = db.QueryRow("SELECT COUNT(*) FROM Timers WHERE RacerName = ? AND RaceID = ?", RacerName, RaceId).Scan(&count)
-	if err != nil  && err.Error() != sql.ErrNoRows.Error() {
+	if err != nil && err.Error() != sql.ErrNoRows.Error() {
 		logger.ErrorLogger.Println(err.Error())
 		return false
 	}

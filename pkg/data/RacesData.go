@@ -1,8 +1,8 @@
 package data
 
 import (
-	"logger"
 	"database/sql"
+	"logger"
 
 	_ "github.com/go-sql-driver/mysql"
 )
