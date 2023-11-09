@@ -2,6 +2,7 @@ package data
 
 import (
 	"logger"
+	"database/sql"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -12,13 +13,13 @@ func InsertRace(Name string) bool {
 	var err error
 
 	var count int
-	err = db.QueryRow("SELECT * FROM Race WHERE Name = ?", Name).Scan(&count)
-	if err != nil {
+	err = db.QueryRow("SELECT COUNT(*) FROM Races WHERE Name = ?", Name).Scan(&count)
+	if err != nil && err.Error() != sql.ErrNoRows.Error() {
 		logger.ErrorLogger.Println(err.Error())
 		return false
 	}
 	if count > 0 {
-		logger.ErrorLogger.Println("Race already exists.")
+		logger.ErrorLogger.Println("Races already exists.")
 		return false
 	}
 
