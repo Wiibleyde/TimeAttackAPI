@@ -13,6 +13,7 @@ var (
     InfoLogger    *log.Logger
     ErrorLogger   *log.Logger
     TrafficLogger *log.Logger
+    DebugLogger   *log.Logger
 )
 
 func getDate() string {
@@ -34,5 +35,6 @@ func InitLogger() {
     WarningLogger = log.New(multi, color.YellowString("WARNING: "), log.Ldate|log.Ltime|log.Lshortfile)
     InfoLogger = log.New(multi, color.BlueString("INFO: "), log.Ldate|log.Ltime|log.Lshortfile)
     ErrorLogger = log.New(multi, color.RedString("ERROR: "), log.Ldate|log.Ltime|log.Lshortfile)
-    TrafficLogger = log.New(multi, color.GreenString("TRAFFIC: "), log.Ldate|log.Ltime|log.Lshortfile)
+    TrafficLogger = log.New(multi, color.WhiteString("TRAFFIC: "), log.Ldate|log.Ltime|log.Lshortfile)
+    DebugLogger = log.New(multi, color.GreenString("DEBUG: "), log.Ldate|log.Ltime|log.Lshortfile)
 }

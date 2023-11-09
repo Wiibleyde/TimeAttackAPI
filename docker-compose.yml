@@ -8,9 +8,7 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'yes'
       MYSQL_DATABASE: TimeAttack
-      MYSQL_USER: server
-      MYSQL_PASSWORD: serverpassword
     volumes:
       - ./database:/var/lib/mysql
