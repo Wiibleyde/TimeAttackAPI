@@ -25,5 +25,14 @@ func InitApi() {
 	app.Post("/api/removeRace", removeRaceApi)
 	app.Post("/api/updateRace", updateRaceApi)
 
+	// API Timers
+	app.Post("/api/addTimer", addTimerApi)
+	app.Post("/api/removeTimer", removeTimerApi)
+	app.Get("/api/raceLeaderboard", raceLeaderboardApi)
+	app.Get("/api/raceTimers", raceTimersApi)
+	
+	app.Get("/api/racerTimers", racerTimersApi)
+	app.Get("/api/racerLeaderboard", racerLeaderboardApi)
+	
 	app.Listen(":3001")
 }

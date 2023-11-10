@@ -111,9 +111,46 @@ func GetRacerTimers(RacerName string) []Timers {
 	var err error
 	var timers []Timers
 
-	err = db.QueryRow("SELECT * FROM Timers WHERE RacerName = ?", RacerName).Scan(&timers)
+	rows, err := db.Query("SELECT * FROM Timers WHERE RacerName = ?", RacerName)
 	if err != nil {
 		logger.ErrorLogger.Println(err.Error())
+		return timers
+	}
+
+	for rows.Next() {
+		var timer Timers
+		err = rows.Scan(&timer.ID, &timer.RacerName, &timer.Duration, &timer.RaceID)
+		if err != nil {
+			logger.ErrorLogger.Println(err.Error())
+			return timers
+		}
+		timers = append(timers, timer)
+	}
+
+	return timers
+}
+
+func GetRacerLeaderboard(RacerName string) []Timers {
+	InitDatabase()
+	defer CloseDatabase()
+
+	var err error
+	var timers []Timers
+
+	rows, err := db.Query("SELECT * FROM Timers WHERE RacerName = ? ORDER BY Duration ASC", RacerName)
+	if err != nil {
+		logger.ErrorLogger.Println(err.Error())
+		return timers
+	}
+
+	for rows.Next() {
+		var timer Timers
+		err = rows.Scan(&timer.ID, &timer.RacerName, &timer.Duration, &timer.RaceID)
+		if err != nil {
+			logger.ErrorLogger.Println(err.Error())
+			return timers
+		}
+		timers = append(timers, timer)
 	}
 
 	return timers
