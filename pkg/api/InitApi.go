@@ -23,6 +23,7 @@ func InitApi() {
 	app.Get("/api/raceSearch", raceSearchApi)
 	app.Post("/api/createRace", createRaceApi)
 	app.Post("/api/removeRace", removeRaceApi)
+	app.Post("/api/updateRace", updateRaceApi)
 
 	app.Listen(":3001")
 }

@@ -32,6 +32,21 @@ func InsertRace(Name string) bool {
 	return true
 }
 
+func DeleteRace(ID int) bool {
+	InitDatabase()
+	defer CloseDatabase()
+
+	var err error
+
+	_, err = db.Exec("DELETE FROM Races WHERE ID = ?", ID)
+	if err != nil {
+		logger.ErrorLogger.Println(err.Error())
+		return false
+	}
+
+	return true
+}
+
 func GetRace(id int) Race {
 	InitDatabase()
 	defer CloseDatabase()
@@ -70,4 +85,44 @@ func GetRaces() []Race {
 	}
 
 	return races
+}
+
+func SearchRaces(search string) []Race {
+	InitDatabase()
+	defer CloseDatabase()
+
+	var err error
+	var races []Race
+
+	rows, err := db.Query("SELECT * FROM Races WHERE Name LIKE ? ORDER BY ID ASC", "%"+search+"%")
+	if err != nil {
+		logger.ErrorLogger.Println(err.Error())
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var race Race
+		err = rows.Scan(&race.ID, &race.Name)
+		if err != nil {
+			logger.ErrorLogger.Println(err.Error())
+		}
+		races = append(races, race)
+	}
+
+	return races
+}
+
+func UpdateRace(ID int, Name string) bool {
+	InitDatabase()
+	defer CloseDatabase()
+
+	var err error
+
+	_, err = db.Exec("UPDATE Races SET Name = ? WHERE ID = ?", Name, ID)
+	if err != nil {
+		logger.ErrorLogger.Println(err.Error())
+		return false
+	}
+
+	return true
 }

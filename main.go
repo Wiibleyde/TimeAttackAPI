@@ -9,7 +9,11 @@ import (
 func main() {
 	logger.InitLogger()
 	logger.InfoLogger.Println("Initiliazing program...")
-	data.InitDatabase()
+	status := data.InitDatabase()
+	if !status {
+		logger.ErrorLogger.Println("Database initialization failed.")
+		return
+	}
 	data.InitTables()
 	logger.InfoLogger.Println("Program initialized.")
 	api.InitApi()

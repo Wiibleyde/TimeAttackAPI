@@ -18,19 +18,23 @@ const (
 
 var db *sql.DB
 
-func InitDatabase() {
+func InitDatabase() bool {
 	var err error
 	if os.Getenv("STARTED_BY_DOCKER") == "true" {
 		db, err = sql.Open("mysql", databaseUser+":"+databasePassword+"@tcp(db)/"+databaseName)
 		if err != nil {
 			logger.ErrorLogger.Println(err.Error())
+			return false
 		}
 	} else {
 		db, err = sql.Open("mysql", databaseUser+":"+databasePassword+"@tcp("+databaseHost+":"+databasePort+")/"+databaseName)
 		if err != nil {
 			logger.ErrorLogger.Println(err.Error())
+			return false
 		}
 	}
+
+	return true
 }
 
 func GetDatabase() *sql.DB {
