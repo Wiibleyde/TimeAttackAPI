@@ -11,3 +11,8 @@ type Timers struct {
 	Duration  int
 	RaceID    int
 }
+
+type AuthKey struct {
+	ID   int
+	AuthKey  string
+}

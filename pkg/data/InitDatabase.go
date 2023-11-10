@@ -46,17 +46,23 @@ func InitTables() bool {
 	defer CloseDatabase()
 	var err error
 
-	_, err = db.Exec("CREATE TABLE IF NOT EXISTS Races (ID INT NOT NULL AUTO_INCREMENT, Name VARCHAR(255) NOT NULL, PRIMARY KEY (ID))")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS Races (ID INT NOT NULL AUTO_INCREMENT, Name VARCHAR(255) NOT NULL, PRIMARY KEY (ID)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
 	if err != nil {
 		logger.ErrorLogger.Println(err.Error())
 		return false
 	}
 
-	_, err = db.Exec("CREATE TABLE IF NOT EXISTS Timers (ID INT NOT NULL AUTO_INCREMENT, RacerName VARCHAR(255) NOT NULL, Duration INT NOT NULL, RaceID INT NOT NULL, PRIMARY KEY (ID))")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS Timers (ID INT NOT NULL AUTO_INCREMENT, RacerName VARCHAR(255) NOT NULL, Duration INT NOT NULL, RaceID INT NOT NULL, PRIMARY KEY (ID)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
 	if err != nil {
 		logger.ErrorLogger.Println(err.Error())
 		return false
 	}
 
-	return false
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS AuthKeys (ID INT NOT NULL AUTO_INCREMENT, AuthKey VARCHAR(255) NOT NULL, PRIMARY KEY (ID)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
+	if err != nil {
+		logger.ErrorLogger.Println(err.Error())
+		return false 
+	}
+
+	return true
 }
