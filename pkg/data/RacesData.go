@@ -37,12 +37,37 @@ func GetRace(id int) Race {
 	defer CloseDatabase()
 
 	var err error
-	var races []Race
+	var race Race
 
-	err = db.QueryRow("SELECT * FROM Races WHERE ID = ?", id).Scan(&races)
+	err = db.QueryRow("SELECT * FROM Races WHERE ID = ?", id).Scan(&race.ID, &race.Name)
 	if err != nil {
 		logger.ErrorLogger.Println(err.Error())
 	}
 
-	return races[0]
+	return race
+}
+
+func GetRaces() []Race {
+	InitDatabase()
+	defer CloseDatabase()
+
+	var err error
+	var races []Race
+
+	rows, err := db.Query("SELECT * FROM Races ORDER BY ID ASC")
+	if err != nil {
+		logger.ErrorLogger.Println(err.Error())
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var race Race
+		err = rows.Scan(&race.ID, &race.Name)
+		if err != nil {
+			logger.ErrorLogger.Println(err.Error())
+		}
+		races = append(races, race)
+	}
+
+	return races
 }

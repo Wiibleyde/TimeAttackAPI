@@ -1,6 +1,7 @@
 package main
 
 import (
+	"api"
 	"data"
 	"logger"
 )
@@ -11,4 +12,5 @@ func main() {
 	data.InitDatabase()
 	data.InitTables()
 	logger.InfoLogger.Println("Program initialized.")
+	api.InitApi()
 }

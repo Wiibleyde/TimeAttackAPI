@@ -6,17 +6,17 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func GetLastAuthKey(id int) AuthKey {
+func GetLastAuthKey() AuthKey {
 	InitDatabase()
 	defer CloseDatabase()
 
 	var err error
-	var authKeys []AuthKey
+	var authKeys AuthKey
 
-	err = db.QueryRow("SELECT * FROM AuthKeys WHERE ID = ?", id).Scan(&authKeys)
+	err = db.QueryRow("SELECT * FROM AuthKeys ORDER BY ID DESC LIMIT 1").Scan(&authKeys.ID, &authKeys.AuthKey)
 	if err != nil {
 		logger.ErrorLogger.Println(err.Error())
 	}
 
-	return authKeys[len(authKeys)-1]
+	return authKeys
 }

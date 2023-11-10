@@ -13,6 +13,6 @@ type Timers struct {
 }
 
 type AuthKey struct {
-	ID   int
-	AuthKey  string
+	ID      int
+	AuthKey string
 }
