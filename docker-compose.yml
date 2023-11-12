@@ -12,3 +12,17 @@ services:
       MYSQL_DATABASE: TimeAttack
     volumes:
       - ./database:/var/lib/mysql
+
+  time-attack-api:
+    build: .
+    image: wiibleyde/time-attack-api:latest
+    container_name: time-attack-api
+    restart: always
+    ports:
+      - 3001:3001
+    depends_on:
+      - db
+    environment:
+      - STARTED_BY_DOCKER=true
+    volumes:
+      - ./logs:/root/logs/
