@@ -9,8 +9,10 @@ func InitApi() {
 	app := fiber.New()
 
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: "*",
-		AllowHeaders: "Origin, Content-Type, Accept",
+		AllowOrigins:     "http://localhost:3000",
+		AllowMethods:     "GET,POST,PUT,DELETE",
+		AllowHeaders:     "Origin, Content-Type, Accept, Authorization, Access-Control-Allow-Origin",
+		AllowCredentials: true,
 	}))
 
 	// API status
