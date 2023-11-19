@@ -8,12 +8,12 @@ import (
 func InitApi() {
 	app := fiber.New()
 
-	app.Use(cors.New(cors.Config{
-		AllowOrigins:     "*",
-		AllowMethods:     "GET,POST,PUT,DELETE",
-		AllowHeaders:     "Origin, Content-Type, Accept, Authorization, Access-Control-Allow-Origin",
-		AllowCredentials: true,
-	}))
+	// app.Use(cors.New(cors.Config{
+	// 	AllowOrigins:     "*",
+	// 	AllowMethods:     "GET,POST,PUT,DELETE",
+	// 	AllowHeaders:     "Origin, Content-Type, Accept, Authorization, Access-Control-Allow-Origin",
+	// 	AllowCredentials: true,
+	// }))
 
 	// API status
 	app.Get("/api", homeApi)
