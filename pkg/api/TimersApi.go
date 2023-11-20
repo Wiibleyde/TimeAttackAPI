@@ -64,6 +64,17 @@ func removeTimerApi(c *fiber.Ctx) error {
 }
 
 func raceLeaderboardApi(c *fiber.Ctx) error {
+	reqToken := c.Get("Authorization")
+	if reqToken == "" {
+		return c.SendString("Unauthorized")
+	}
+
+	authKey := data.GetLastAuthKey()
+	if reqToken != authKey.AuthKey {
+		return c.SendString("Unauthorized")
+	}
+
+
 	raceId := c.Query("raceId", "0")
 	raceIdInt, err := strconv.Atoi(raceId)
 	if err != nil {
