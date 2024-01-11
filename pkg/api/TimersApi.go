@@ -64,6 +64,17 @@ func removeTimerApi(c *fiber.Ctx) error {
 }
 
 func raceLeaderboardApi(c *fiber.Ctx) error {
+	reqToken := c.Get("Authorization")
+	if reqToken == "" {
+		return c.SendString("Unauthorized")
+	}
+
+	authKey := data.GetLastAuthKey()
+	if reqToken != authKey.AuthKey {
+		return c.SendString("Unauthorized")
+	}
+
+
 	raceId := c.Query("raceId", "0")
 	raceIdInt, err := strconv.Atoi(raceId)
 	if err != nil {
@@ -77,6 +88,16 @@ func raceLeaderboardApi(c *fiber.Ctx) error {
 }
 
 func raceTimersApi(c *fiber.Ctx) error {
+	reqToken := c.Get("Authorization")
+	if reqToken == "" {
+		return c.SendString("Unauthorized")
+	}
+
+	authKey := data.GetLastAuthKey()
+	if reqToken != authKey.AuthKey {
+		return c.SendString("Unauthorized")
+	}
+
 	raceId := c.Query("raceId", "0")
 	raceIdInt, err := strconv.Atoi(raceId)
 	if err != nil {
@@ -90,6 +111,16 @@ func raceTimersApi(c *fiber.Ctx) error {
 }
 
 func racerTimersApi(c *fiber.Ctx) error {
+	reqToken := c.Get("Authorization")
+	if reqToken == "" {
+		return c.SendString("Unauthorized")
+	}
+
+	authKey := data.GetLastAuthKey()
+	if reqToken != authKey.AuthKey {
+		return c.SendString("Unauthorized")
+	}
+
 	racerName := c.Query("racerName", "")
 	if racerName == "" {
 		return c.SendString("Invalid racerName")
@@ -101,6 +132,16 @@ func racerTimersApi(c *fiber.Ctx) error {
 }
 
 func racerLeaderboardApi(c *fiber.Ctx) error {
+	reqToken := c.Get("Authorization")
+	if reqToken == "" {
+		return c.SendString("Unauthorized")
+	}
+
+	authKey := data.GetLastAuthKey()
+	if reqToken != authKey.AuthKey {
+		return c.SendString("Unauthorized")
+	}
+
 	racerName := c.Query("racerName", "")
 	if racerName == "" {
 		return c.SendString("Invalid racerName")
