@@ -13,6 +13,9 @@ func InitApi() {
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 
+	// Serve static files
+	app.Static("/files/", "./public")
+
 	// API status
 	app.Get("/api", homeApi)
 	app.Get("/api/status", statusApi)
